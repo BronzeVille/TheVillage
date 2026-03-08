@@ -92,7 +92,7 @@ func _send(job: Dictionary) -> void:
 		"model":   _model,
 		"messages": job["messages"],
 		"stream":  false,
-		"think":   true,
+		"think":   false,
 		"options": {
 			"temperature": 0.85,
 			"num_predict": NUM_PREDICT,
