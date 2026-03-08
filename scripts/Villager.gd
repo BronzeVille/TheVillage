@@ -189,19 +189,19 @@ func _build_messages() -> Array:
 		action_lines.append('  "%s": %s' % [id, ACTIONS[id]["desc"]])
 
 	var system_prompt: String = (
-		"You are %s, a %s in a small Bronze Age tribe of about 12 people.\n"
-		"Personality: %s\n"
-		"Skills: %s\n\n"
-		"Choose your next action. Respond with ONLY a JSON object — "
-		"no markdown fences, no text outside the JSON.\n\n"
-		"Available actions:\n%s\n\n"
-		"Response format (strict JSON, no extra keys):\n"
-		"{\n"
-		'  "action": "<one of the action ids above>",\n'
-		'  "target": "<optional: another villager name, resource, or empty>",\n'
-		'  "speech": "<what you say aloud right now — 1 sentence or empty>",\n'
-		'  "mood": "<one word emotional state>",\n'
-		'  "reason": "<one sentence explaining your choice>"\n'
+		"You are %s, a %s in a small Bronze Age tribe of about 12 people.\n" +
+		"Personality: %s\n" +
+		"Skills: %s\n\n" +
+		"Choose your next action. Respond with ONLY a JSON object — " +
+		"no markdown fences, no text outside the JSON.\n\n" +
+		"Available actions:\n%s\n\n" +
+		"Response format (strict JSON, no extra keys):\n" +
+		"{\n" +
+		'  "action": "<one of the action ids above>",\n' +
+		'  "target": "<optional: another villager name, resource, or empty>",\n' +
+		'  "speech": "<what you say aloud right now — 1 sentence or empty>",\n' +
+		'  "mood": "<one word emotional state>",\n' +
+		'  "reason": "<one sentence explaining your choice>"\n' +
 		"}"
 	) % [villager_name, role, personality, skills, "\n".join(action_lines)]
 
@@ -220,11 +220,11 @@ func _build_messages() -> Array:
 	)
 
 	var user_message: String = (
-		"Current time: %s\n"
-		"Tribe resources: %s\n\n"
-		"Recent tribal events:\n%s\n\n"
-		"Your recent memories:\n%s\n\n"
-		"Current mood: %s\n\n"
+		"Current time: %s\n" +
+		"Tribe resources: %s\n\n" +
+		"Recent tribal events:\n%s\n\n" +
+		"Your recent memories:\n%s\n\n" +
+		"Current mood: %s\n\n" +
 		"What do you do next?"
 	) % [
 		WorldState.time_string(),

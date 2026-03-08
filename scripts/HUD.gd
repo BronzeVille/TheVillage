@@ -18,7 +18,7 @@ var _event_log:      VBoxContainer
 var _event_scroll:   ScrollContainer
 var _thinker_label:  Label
 var _thought_text:   RichTextLabel
-var _speech_label:   Label
+var _speech_label:   RichTextLabel
 
 const MAX_EVENT_ROWS: int = 30
 const PANEL_BG: Color = Color(0.08, 0.06, 0.04, 0.82)
