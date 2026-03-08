@@ -13,6 +13,7 @@ const FALLBACK_MODEL: String = "qwen3.5:9b"
 const NUM_PREDICT: int = 768
 
 var _model: String = FALLBACK_MODEL
+var _think: bool = false
 var _queue: Array[Dictionary] = []
 var _busy: bool = false
 var _http: HTTPRequest
@@ -29,14 +30,16 @@ func _ready() -> void:
 	# Generous timeout for slow CPU inference (10 minutes)
 	_http.timeout = 600.0
 
-	# Read model from config file if present, otherwise auto-detect
+	# Read model and options from config file if present, otherwise auto-detect
 	var cfg := FileAccess.open("res://ollama_model.cfg", FileAccess.READ)
 	if cfg != null:
 		var name := cfg.get_line().strip_edges()
+		var think_line := cfg.get_line().strip_edges()
 		cfg.close()
 		if not name.is_empty():
 			_model = name
-			print("AIQueue: using model %s (from ollama_model.cfg)" % _model)
+			_think = think_line.to_lower() == "true"
+			print("AIQueue: using model %s, think=%s (from ollama_model.cfg)" % [_model, _think])
 			return
 
 	_http_tags = HTTPRequest.new()
@@ -92,7 +95,7 @@ func _send(job: Dictionary) -> void:
 		"model":   _model,
 		"messages": job["messages"],
 		"stream":  false,
-		"think":   false,
+		"think":   _think,
 		"options": {
 			"temperature": 0.85,
 			"num_predict": NUM_PREDICT,
