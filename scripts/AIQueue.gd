@@ -29,6 +29,16 @@ func _ready() -> void:
 	# Generous timeout for slow CPU inference (10 minutes)
 	_http.timeout = 600.0
 
+	# Read model from config file if present, otherwise auto-detect
+	var cfg := FileAccess.open("res://ollama_model.cfg", FileAccess.READ)
+	if cfg != null:
+		var name := cfg.get_line().strip_edges()
+		cfg.close()
+		if not name.is_empty():
+			_model = name
+			print("AIQueue: using model %s (from ollama_model.cfg)" % _model)
+			return
+
 	_http_tags = HTTPRequest.new()
 	add_child(_http_tags)
 	_http_tags.request_completed.connect(_on_tags_completed)
@@ -46,7 +56,7 @@ func _on_tags_completed(
 			var data = json.get_data()
 			if data is Dictionary and data.has("models") and not data["models"].is_empty():
 				_model = data["models"][0]["name"]
-				print("AIQueue: using model %s" % _model)
+				print("AIQueue: using model %s (auto-detected)" % _model)
 				return
 	push_warning("AIQueue: could not detect model, falling back to %s" % FALLBACK_MODEL)
 

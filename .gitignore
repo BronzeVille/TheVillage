@@ -12,3 +12,6 @@ export_presets.cfg
 
 # Windows
 Thumbs.db
+
+# Local Ollama model override (machine-specific)
+ollama_model.cfg
