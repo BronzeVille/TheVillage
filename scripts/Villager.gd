@@ -258,11 +258,15 @@ func _on_ai_response(response: Dictionary) -> void:
 				content  = content.substr(te + 8).strip_edges()
 
 	_last_thought = thinking
-	if not thinking.is_empty():
-		thought_updated.emit(self, thinking)
 
 	var action_data := _parse_action(content)
 	_start_action(action_data)
+
+	# Show thinking chain if available, otherwise show the reason from the action
+	var thought_display: String = thinking if not thinking.is_empty() \
+		else action_data.get("reason", "")
+	if not thought_display.is_empty():
+		thought_updated.emit(self, thought_display)
 
 
 func _parse_action(content: String) -> Dictionary:
