@@ -27,8 +27,8 @@ func _ready() -> void:
 	_http = HTTPRequest.new()
 	add_child(_http)
 	_http.request_completed.connect(_on_request_completed)
-	# Generous timeout for slow CPU inference (10 minutes)
-	_http.timeout = 600.0
+	# Timeout per request — long enough for CPU inference, short enough to recover
+	_http.timeout = 120.0
 
 	# Read model and options from config file if present, otherwise auto-detect
 	var cfg := FileAccess.open("res://ollama_model.cfg", FileAccess.READ)
@@ -91,6 +91,10 @@ func _process_next() -> void:
 
 
 func _send(job: Dictionary) -> void:
+	# Reset any stale connection state (e.g. keep-alive closed by Ollama between rounds)
+	_http.cancel_request()
+	_http.set_meta("job", job)
+
 	var payload := {
 		"model":   _model,
 		"messages": job["messages"],
@@ -113,8 +117,6 @@ func _send(job: Dictionary) -> void:
 		push_warning("AIQueue: HTTPRequest failed to start (error %d)" % err)
 		job["callback"].call({})
 		_process_next()
-		return
-	_http.set_meta("job", job)
 
 
 func _on_request_completed(
