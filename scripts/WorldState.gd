@@ -62,7 +62,7 @@ func change_resource(res_name: String, delta: int) -> void:
 
 ## Return the last `count` events from the log.
 func get_recent_events(count: int = 10) -> Array[Dictionary]:
-	var start := max(0, event_log.size() - count)
+	var start: int = max(0, event_log.size() - count)
 	return event_log.slice(start)
 
 
