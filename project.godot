@@ -24,6 +24,11 @@ window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep"
 
+[autoload]
+
+WorldState="*res://scripts/WorldState.gd"
+AIQueue="*res://scripts/AIQueue.gd"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
