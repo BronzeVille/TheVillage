@@ -9,7 +9,7 @@ const OLLAMA_URL: String = "http://127.0.0.1:11434/api/chat"
 
 ## Ollama model tag. Verify with: ollama list
 ## Qwen3.5-4B (thinking-capable). Adjust tag if yours differs.
-const MODEL: String = "qwen3.5:27b"
+const MODEL: String = "qwen3.5:9b"
 
 ## Max tokens to generate per response (keeps decisions snappy).
 const NUM_PREDICT: int = 768
