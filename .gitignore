@@ -1,0 +1,14 @@
+# Godot 4 generated files
+.godot/
+
+# Import metadata (regenerated on open)
+*.import
+
+# Export presets (may contain sensitive paths)
+export_presets.cfg
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
