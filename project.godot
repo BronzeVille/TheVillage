@@ -16,6 +16,7 @@ config/version="0.1.0"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://assets/icon.svg"
 run/main_scene="res://scenes/world/World.tscn"
+run/max_fps=30
 
 [display]
 
@@ -28,6 +29,10 @@ window/stretch/aspect="keep"
 
 WorldState="*res://scripts/WorldState.gd"
 AIQueue="*res://scripts/AIQueue.gd"
+
+[physics]
+
+common/physics_ticks_per_second=30
 
 [rendering]
 
