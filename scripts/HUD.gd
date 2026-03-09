@@ -108,9 +108,9 @@ func _on_world_event(event: Dictionary) -> void:
 	label.add_theme_font_size_override("normal_font_size", 11)
 	_event_log.add_child(label)
 
-	# Trim old entries
+	# Trim old entries — use free() not queue_free() so child count updates immediately
 	while _event_log.get_child_count() > MAX_EVENT_ROWS:
-		_event_log.get_child(0).queue_free()
+		_event_log.get_child(0).free()
 
 	# Auto-scroll to bottom
 	await get_tree().process_frame
